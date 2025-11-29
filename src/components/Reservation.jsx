@@ -6,16 +6,27 @@ import { fetchReservedSeats, saveReservation, checkReservation, cancelReservatio
 
 const ReservationContainer = styled(motion.div)`
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 100px 20px 50px;
   background: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
 
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
   @media (max-width: 768px) {
     padding: 80px 10px 100px;
     align-items: flex-start;
+    display: block; /* Change to block to allow proper scrolling flow */
   }
 `;
 
