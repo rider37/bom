@@ -14,7 +14,7 @@ const ReservationContainer = styled(motion.div)`
   align-items: center;
 
   @media (max-width: 768px) {
-    padding: 80px 10px 30px;
+    padding: 80px 10px 100px;
     align-items: flex-start;
   }
 `;
@@ -34,6 +34,7 @@ const ContentBox = styled.div`
     flex-direction: column;
     min-height: auto;
     border-radius: 20px;
+    overflow: visible;
   }
 `;
 
