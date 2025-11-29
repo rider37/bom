@@ -53,12 +53,20 @@ const HeroContent = styled(motion.div)`
     font-size: 5rem;
     margin-bottom: 1rem;
     text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+
+    @media (max-width: 768px) {
+      font-size: 3rem;
+    }
   }
   
   p {
     font-size: 1.5rem;
     font-weight: 300;
     letter-spacing: 2px;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -76,6 +84,11 @@ const ContentCard = styled(motion.div)`
   max-width: 900px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.8);
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -86,6 +99,11 @@ const SectionTitle = styled.h2`
   
   span {
     color: var(--accent-color);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
 `;
 
@@ -98,6 +116,11 @@ const TextBlock = styled.div`
   strong {
     color: var(--text-main);
     font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
 `;
 
@@ -123,6 +146,11 @@ const TimelineContainer = styled.div`
     background: var(--accent-color);
     border-radius: 10px;
   }
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
 `;
 
 const TimelineItem = styled(motion.div)`
@@ -135,6 +163,12 @@ const TimelineItem = styled(motion.div)`
   &:last-child {
     border-bottom: none;
   }
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Year = styled.div`
@@ -143,6 +177,11 @@ const Year = styled.div`
   color: var(--accent-color);
   font-weight: bold;
   min-width: 100px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    min-width: auto;
+  }
 `;
 
 const Events = styled.div`
@@ -152,6 +191,10 @@ const Events = styled.div`
   gap: 0.5rem;
   color: var(--text-main);
   font-size: 1.1rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 // --- Recruitment Section ---
@@ -168,6 +211,11 @@ const GridContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 `;
 
 const TeamCard = styled(motion.div)`
@@ -197,6 +245,10 @@ const TeamCard = styled(motion.div)`
     line-height: 1.6;
     color: var(--text-muted);
   }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
 
 const InfoBox = styled.div`
@@ -209,6 +261,12 @@ const InfoBox = styled.div`
   justify-content: space-between;
   gap: 2rem;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
 `;
 
 const InfoItem = styled.div`
@@ -232,6 +290,10 @@ const InfoItem = styled.div`
       color: var(--text-muted);
       font-size: 0.95rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    min-width: auto;
   }
 `;
 
@@ -258,6 +320,10 @@ const MarqueeTrack = styled(motion.div)`
   gap: 3rem;
   padding: 2rem 0;
   width: max-content;
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+  }
 `;
 
 const PosterItem = styled(motion.div)`
@@ -280,6 +346,11 @@ const PosterItem = styled(motion.div)`
   &:hover img {
     transform: scale(1.1);
   }
+
+  @media (max-width: 768px) {
+    height: 40vh;
+    border-radius: 10px;
+  }
 `;
 
 const OutroSection = styled(Section)`
@@ -291,12 +362,20 @@ const OutroSection = styled(Section)`
     font-family: var(--font-display);
     font-size: 3rem;
     margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
   }
   
   p {
     font-size: 1.2rem;
     opacity: 0.8;
     margin-bottom: 0.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
   }
 `;
 
