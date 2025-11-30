@@ -620,22 +620,25 @@ Error generating stack: `+l.message+`
   }
 
   @media (max-width: 768px) {
-    align-items: flex-start;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    
-    & > * {
-      margin-left: auto;
-      margin-right: auto;
-    }
+    align-items: flex-start; /* Allow scrolling from start */
+    padding-left: 0;
+    padding-right: 0;
   }
 `,p3=nt.div`
+  min-width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+`,y3=nt.div`
   display: flex;
   gap: 4rem;
   justify-content: center;
 
   @media (max-width: 768px) {
-    gap: 2rem; /* Reduce gap on mobile */
+    gap: 1rem; /* Reduce gap further on mobile */
   }
 `,h0=nt.div`
   display: grid;
@@ -645,13 +648,14 @@ Error generating stack: `+l.message+`
   @media (max-width: 768px) {
     gap: 4px; /* Smaller gap on mobile */
   }
-`,y3=nt(de.div)`
+`,g3=nt(de.div)`
   width: 30px;
   height: 30px;
   background: ${i=>i.occupied?"#ddd":i.selected?i.color:i.lightColor};
   border: 1px solid ${i=>i.occupied?"#ccc":i.color};
   border-radius: 6px;
   cursor: ${i=>i.occupied?"not-allowed":"pointer"};
+  pointer-events: ${i=>i.occupied?"none":"auto"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -665,7 +669,7 @@ Error generating stack: `+l.message+`
     font-size: 0.6rem;
     border-radius: 4px;
   }
-`,g3=nt.div`
+`,v3=nt.div`
   width: 80%;
   height: 40px;
   background: #333;
@@ -704,16 +708,16 @@ Error generating stack: `+l.message+`
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-`,v3=()=>{const[i,a]=J.useState(0),[s,r]=J.useState(1),[c,d]=J.useState([]),[f,y]=J.useState([]),[p,m]=J.useState({name:"",phone:""}),[v,S]=J.useState(!1),[x,z]=J.useState({name:"",phone:""}),[V,H]=J.useState(null),[X,Y]=J.useState(!1),[q,U]=J.useState(!1);J.useEffect(()=>{k()},[]);const k=async()=>{const I=await i3();y(I)},Q=()=>{i===0?a(1):i===1&&(p.name&&p.phone?a(2):alert("이름과 연락처를 입력해주세요."))},Z=I=>{f.includes(I)||(c.includes(I)?d(c.filter(bt=>bt!==I)):c.length<s?d([...c,I]):alert(`최대 ${s}명까지 선택 가능합니다.`))},L=async()=>{if(c.length!==s){alert(`${s}개의 좌석을 선택해주세요.`);return}Y(!0);const I={...p,ticketCount:s,seats:c},bt=await a3(I);Y(!1),bt.status==="success"?(U(!0),a(0),y(me=>[...me,...c]),d([]),m({name:"",phone:""}),setTimeout(k,1e3)):alert(`예매 중 오류가 발생했습니다.
+`,S3=()=>{const[i,a]=J.useState(0),[s,r]=J.useState(1),[c,d]=J.useState([]),[f,y]=J.useState([]),[p,m]=J.useState({name:"",phone:""}),[v,S]=J.useState(!1),[x,z]=J.useState({name:"",phone:""}),[V,H]=J.useState(null),[X,Y]=J.useState(!1),[q,U]=J.useState(!1);J.useEffect(()=>{k()},[]);const k=async()=>{const I=await i3();y(I)},Q=()=>{i===0?a(1):i===1&&(p.name&&p.phone?a(2):alert("이름과 연락처를 입력해주세요."))},Z=I=>{f.includes(I)||(c.includes(I)?d(c.filter(bt=>bt!==I)):c.length<s?d([...c,I]):alert(`최대 ${s}명까지 선택 가능합니다.`))},L=async()=>{if(c.length!==s){alert(`${s}개의 좌석을 선택해주세요.`);return}Y(!0);const I={...p,ticketCount:s,seats:c},bt=await a3(I);Y(!1),bt.status==="success"?(U(!0),a(0),y(me=>[...me,...c]),d([]),m({name:"",phone:""}),setTimeout(k,3e3)):alert(`예매 중 오류가 발생했습니다.
 `+(bt.message||""))},F=async()=>{if(!x.name||!x.phone){alert("이름과 연락처를 입력해주세요.");return}Y(!0);try{const I=await l3(x.name,x.phone);console.log("Check Result:",I),I.status==="success"?H(I.reservations):Array.isArray(I)?alert("시스템 업데이트가 필요합니다. 관리자에게 문의해주세요. (GAS 버전 불일치)"):I.reservations&&I.reservations.length===0?H([]):alert(`예약 정보를 찾을 수 없거나 오류가 발생했습니다.
-`+(I.message||""))}catch(I){alert("오류가 발생했습니다: "+I.message)}finally{Y(!1)}},pt=async()=>{if(window.confirm("정말로 예약을 취소하시겠습니까?")){Y(!0);const I=await s3(x.name,x.phone);Y(!1),I.status==="success"?(alert("예약이 취소되었습니다."),H(null),S(!1),k()):alert("취소 중 오류가 발생했습니다.")}},zt=(I,bt,me,It,te,O,G=!1)=>{let P=[];for(let at=me-1;at>=0;at--){const ot=bt+at*It;for(let A=0;A<It;A++){const _=G?ot+It-1-A:ot+A,K=`${I}-${_}`;P.push(b.jsx(y3,{color:te,lightColor:O,occupied:f.includes(K),selected:c.includes(K),onClick:()=>Z(K),whileHover:{scale:1.1},whileTap:{scale:.9},children:_},K))}}return P};return b.jsxs(r3,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},children:[b.jsxs(u3,{children:[b.jsxs(o3,{children:[b.jsx(c3,{src:b1,alt:"Poster"}),b.jsxs(f3,{children:["갈라쇼 ",b.jsx("br",{}),"<The Record: 감정조각>"]}),b.jsxs(f0,{children:["일시: 2026.01.16 - 01.17",b.jsx("br",{}),"장소: 학산소극장",b.jsx("br",{}),"러닝타임: 100분"]})]}),b.jsx(h3,{children:b.jsxs(Qr,{mode:"wait",children:[i===0&&b.jsxs(de.div,{initial:{opacity:0,x:20},animate:{opacity:1,x:0},exit:{opacity:0,x:-20},style:{display:"flex",flexDirection:"column",gap:"1rem"},children:[b.jsxs(Hl,{children:[b.jsx("span",{children:"Step 01"}),"예매 안내"]}),b.jsxs(f0,{style:{color:"#555"},children:["본 공연은 무료 공연입니다.",b.jsx("br",{}),"원활한 관람을 위해 1인당 최대 10매까지 예매 가능합니다.",b.jsx("br",{}),"공연 시작 10분 전까지 티켓을 수령해주시기 바랍니다."]}),b.jsxs("div",{style:{display:"flex",gap:"1rem"},children:[b.jsx(un,{primary:!0,onClick:Q,style:{flex:1},children:"예매하기"}),b.jsx(un,{onClick:()=>S(!0),style:{flex:1,background:"#f0f0f0",color:"#333"},children:"예약 확인"})]})]},"step0"),i===1&&b.jsxs(de.div,{initial:{opacity:0,x:20},animate:{opacity:1,x:0},exit:{opacity:0,x:-20},children:[b.jsxs(Hl,{children:[b.jsx("span",{children:"Step 02"}),"정보 입력"]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"이름"}),b.jsx(Br,{type:"text",placeholder:"이름을 입력하세요",value:p.name,onChange:I=>m({...p,name:I.target.value})})]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"연락처"}),b.jsx(Br,{type:"tel",placeholder:"010-0000-0000",value:p.phone,onChange:I=>m({...p,phone:I.target.value})})]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"인원 선택"}),b.jsx(d3,{value:s,onChange:I=>r(Number(I.target.value)),children:[...Array(10)].map((I,bt)=>b.jsxs("option",{value:bt+1,children:[bt+1,"명"]},bt+1))})]}),b.jsxs("div",{style:{display:"flex",marginTop:"2rem"},children:[b.jsx(un,{type:"button",onClick:()=>a(0),children:"이전"}),b.jsx(un,{type:"button",primary:!0,onClick:Q,children:"다음"})]})]},"step1"),i===2&&b.jsxs(de.div,{initial:{opacity:0,x:20},animate:{opacity:1,x:0},exit:{opacity:0,x:-20},children:[b.jsxs(Hl,{children:[b.jsx("span",{children:"Step 03"}),"좌석 선택"]}),b.jsxs(m3,{children:[b.jsxs("div",{style:{position:"relative"},children:[b.jsx("span",{style:{color:"#9370db",fontWeight:"bold",display:"block",textAlign:"center",marginBottom:"10px"},children:"다열"}),b.jsx("div",{style:{display:"flex",gap:"6px",flexDirection:"row-reverse"},children:zt("다",1,1,18,"#9370db","#e6e6fa")})]}),b.jsxs(p3,{children:[b.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center"},children:[b.jsx("span",{style:{color:"#40e0d0",fontWeight:"bold",marginBottom:"10px"},children:"나열"}),b.jsx(h0,{children:zt("나",1,6,8,"#40e0d0","#e0ffff",!0)})]}),b.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center"},children:[b.jsx("span",{style:{color:"#ff7f50",fontWeight:"bold",marginBottom:"10px"},children:"가열"}),b.jsx(h0,{children:zt("가",1,6,8,"#ff7f50","#ffe4e1")})]})]}),b.jsx(g3,{children:"STAGE"})]}),b.jsxs("div",{style:{display:"flex",marginTop:"2rem"},children:[b.jsx(un,{type:"button",onClick:()=>a(1),children:"이전"}),b.jsx(un,{type:"button",primary:!0,onClick:L,disabled:X,children:X?"처리중...":"예매 완료"})]})]},"step2")]})})]}),b.jsx(Qr,{children:v&&b.jsx(d0,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},onClick:()=>S(!1),children:b.jsxs(m0,{onClick:I=>I.stopPropagation(),children:[b.jsx(p0,{onClick:()=>S(!1),children:"×"}),b.jsxs(Hl,{children:[b.jsx("span",{children:"Check"}),"예약 확인"]}),V?b.jsx("div",{style:{marginTop:"1rem"},children:V.length>0?b.jsxs(b.Fragment,{children:[b.jsx("p",{style:{marginBottom:"1rem",color:"green",fontWeight:"bold"},children:"예약 내역이 있습니다."}),V.map((I,bt)=>b.jsxs("div",{style:{background:"#f9f9f9",padding:"1rem",borderRadius:"10px",marginBottom:"1rem"},children:[b.jsxs("p",{children:[b.jsx("strong",{children:"이름:"})," ",I.name]}),b.jsxs("p",{children:[b.jsx("strong",{children:"인원:"})," ",I.count,"명"]}),b.jsxs("p",{children:[b.jsx("strong",{children:"좌석:"})," ",I.seats]}),b.jsxs("p",{children:[b.jsx("strong",{children:"날짜:"})," ",new Date(I.date).toLocaleDateString()]})]},bt)),b.jsx(un,{onClick:pt,style:{width:"100%",background:"#ff6b6b",color:"white"},disabled:X,children:X?"취소중...":"예약 취소"})]}):b.jsxs(b.Fragment,{children:[b.jsx("p",{style:{marginBottom:"1rem",color:"red"},children:"예약 내역이 없습니다."}),b.jsx(un,{onClick:()=>H(null),style:{width:"100%"},children:"다시 조회"})]})}):b.jsxs(b.Fragment,{children:[b.jsxs(Yl,{children:[b.jsx(Gl,{children:"이름"}),b.jsx(Br,{type:"text",placeholder:"예약자 이름",value:x.name,onChange:I=>z({...x,name:I.target.value})})]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"연락처"}),b.jsx(Br,{type:"tel",placeholder:"예약자 연락처",value:x.phone,onChange:I=>z({...x,phone:I.target.value})})]}),b.jsx(un,{primary:!0,onClick:F,style:{width:"100%",marginTop:"1rem"},disabled:X,children:X?"조회중...":"조회하기"})]})]})})}),b.jsx(Qr,{children:q&&b.jsx(d0,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},onClick:()=>U(!1),children:b.jsxs(m0,{onClick:I=>I.stopPropagation(),style:{textAlign:"center"},children:[b.jsx(p0,{onClick:()=>U(!1),children:"×"}),b.jsx("div",{style:{fontSize:"3rem",marginBottom:"1rem"},children:"🎉"}),b.jsx(Hl,{style:{justifyContent:"center"},children:"예매 완료!"}),b.jsxs("p",{style:{marginBottom:"2rem",color:"#666"},children:["공연 예매가 성공적으로 완료되었습니다.",b.jsx("br",{}),"예약 확인 메뉴에서 내역을 확인하실 수 있습니다."]}),b.jsx(un,{primary:!0,onClick:()=>U(!1),style:{width:"100%",margin:0},children:"확인"})]})})})]})},S3=nt(de.div)`
+`+(I.message||""))}catch(I){alert("오류가 발생했습니다: "+I.message)}finally{Y(!1)}},pt=async()=>{if(window.confirm("정말로 예약을 취소하시겠습니까?")){Y(!0);const I=await s3(x.name,x.phone);Y(!1),I.status==="success"?(alert("예약이 취소되었습니다."),H(null),S(!1),k()):alert("취소 중 오류가 발생했습니다.")}},zt=(I,bt,me,It,te,O,G=!1)=>{let P=[];for(let at=me-1;at>=0;at--){const ot=bt+at*It;for(let A=0;A<It;A++){const _=G?ot+It-1-A:ot+A,K=`${I}-${_}`;P.push(b.jsx(g3,{color:te,lightColor:O,occupied:f.includes(K),selected:c.includes(K),onClick:()=>Z(K),whileHover:{scale:1.1},whileTap:{scale:.9},children:_},K))}}return P};return b.jsxs(r3,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},children:[b.jsxs(u3,{children:[b.jsxs(o3,{children:[b.jsx(c3,{src:b1,alt:"Poster"}),b.jsxs(f3,{children:["갈라쇼 ",b.jsx("br",{}),"<The Record: 감정조각>"]}),b.jsxs(f0,{children:["일시: 2026.01.16 - 01.17",b.jsx("br",{}),"장소: 학산소극장",b.jsx("br",{}),"러닝타임: 100분"]})]}),b.jsx(h3,{children:b.jsxs(Qr,{mode:"wait",children:[i===0&&b.jsxs(de.div,{initial:{opacity:0,x:20},animate:{opacity:1,x:0},exit:{opacity:0,x:-20},style:{display:"flex",flexDirection:"column",gap:"1rem"},children:[b.jsxs(Hl,{children:[b.jsx("span",{children:"Step 01"}),"예매 안내"]}),b.jsxs(f0,{style:{color:"#555"},children:["본 공연은 무료 공연입니다.",b.jsx("br",{}),"원활한 관람을 위해 1인당 최대 10매까지 예매 가능합니다.",b.jsx("br",{}),"공연 시작 10분 전까지 티켓을 수령해주시기 바랍니다."]}),b.jsxs("div",{style:{display:"flex",gap:"1rem"},children:[b.jsx(un,{primary:!0,onClick:Q,style:{flex:1},children:"예매하기"}),b.jsx(un,{onClick:()=>S(!0),style:{flex:1,background:"#f0f0f0",color:"#333"},children:"예약 확인"})]})]},"step0"),i===1&&b.jsxs(de.div,{initial:{opacity:0,x:20},animate:{opacity:1,x:0},exit:{opacity:0,x:-20},children:[b.jsxs(Hl,{children:[b.jsx("span",{children:"Step 02"}),"정보 입력"]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"이름"}),b.jsx(Br,{type:"text",placeholder:"이름을 입력하세요",value:p.name,onChange:I=>m({...p,name:I.target.value})})]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"연락처"}),b.jsx(Br,{type:"tel",placeholder:"010-0000-0000",value:p.phone,onChange:I=>m({...p,phone:I.target.value})})]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"인원 선택"}),b.jsx(d3,{value:s,onChange:I=>r(Number(I.target.value)),children:[...Array(10)].map((I,bt)=>b.jsxs("option",{value:bt+1,children:[bt+1,"명"]},bt+1))})]}),b.jsxs("div",{style:{display:"flex",marginTop:"2rem"},children:[b.jsx(un,{type:"button",onClick:()=>a(0),children:"이전"}),b.jsx(un,{type:"button",primary:!0,onClick:Q,children:"다음"})]})]},"step1"),i===2&&b.jsxs(de.div,{initial:{opacity:0,x:20},animate:{opacity:1,x:0},exit:{opacity:0,x:-20},children:[b.jsxs(Hl,{children:[b.jsx("span",{children:"Step 03"}),"좌석 선택"]}),b.jsx(m3,{children:b.jsxs(p3,{children:[b.jsxs("div",{style:{position:"relative"},children:[b.jsx("span",{style:{color:"#9370db",fontWeight:"bold",display:"block",textAlign:"center",marginBottom:"10px"},children:"다열"}),b.jsx("div",{style:{display:"flex",gap:"6px",flexDirection:"row-reverse"},children:zt("다",1,1,18,"#9370db","#e6e6fa")})]}),b.jsxs(y3,{children:[b.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center"},children:[b.jsx("span",{style:{color:"#40e0d0",fontWeight:"bold",marginBottom:"10px"},children:"나열"}),b.jsx(h0,{children:zt("나",1,6,8,"#40e0d0","#e0ffff",!0)})]}),b.jsxs("div",{style:{display:"flex",flexDirection:"column",alignItems:"center"},children:[b.jsx("span",{style:{color:"#ff7f50",fontWeight:"bold",marginBottom:"10px"},children:"가열"}),b.jsx(h0,{children:zt("가",1,6,8,"#ff7f50","#ffe4e1")})]})]}),b.jsx(v3,{children:"STAGE"})]})}),b.jsxs("div",{style:{display:"flex",marginTop:"2rem"},children:[b.jsx(un,{type:"button",onClick:()=>a(1),children:"이전"}),b.jsx(un,{type:"button",primary:!0,onClick:L,disabled:X,children:X?"처리중...":"예매 완료"})]})]},"step2")]})})]}),b.jsx(Qr,{children:v&&b.jsx(d0,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},onClick:()=>S(!1),children:b.jsxs(m0,{onClick:I=>I.stopPropagation(),children:[b.jsx(p0,{onClick:()=>S(!1),children:"×"}),b.jsxs(Hl,{children:[b.jsx("span",{children:"Check"}),"예약 확인"]}),V?b.jsx("div",{style:{marginTop:"1rem"},children:V.length>0?b.jsxs(b.Fragment,{children:[b.jsx("p",{style:{marginBottom:"1rem",color:"green",fontWeight:"bold"},children:"예약 내역이 있습니다."}),V.map((I,bt)=>b.jsxs("div",{style:{background:"#f9f9f9",padding:"1rem",borderRadius:"10px",marginBottom:"1rem"},children:[b.jsxs("p",{children:[b.jsx("strong",{children:"이름:"})," ",I.name]}),b.jsxs("p",{children:[b.jsx("strong",{children:"인원:"})," ",I.count,"명"]}),b.jsxs("p",{children:[b.jsx("strong",{children:"좌석:"})," ",I.seats]}),b.jsxs("p",{children:[b.jsx("strong",{children:"날짜:"})," ",new Date(I.date).toLocaleDateString()]})]},bt)),b.jsx(un,{onClick:pt,style:{width:"100%",background:"#ff6b6b",color:"white"},disabled:X,children:X?"취소중...":"예약 취소"})]}):b.jsxs(b.Fragment,{children:[b.jsx("p",{style:{marginBottom:"1rem",color:"red"},children:"예약 내역이 없습니다."}),b.jsx(un,{onClick:()=>H(null),style:{width:"100%"},children:"다시 조회"})]})}):b.jsxs(b.Fragment,{children:[b.jsxs(Yl,{children:[b.jsx(Gl,{children:"이름"}),b.jsx(Br,{type:"text",placeholder:"예약자 이름",value:x.name,onChange:I=>z({...x,name:I.target.value})})]}),b.jsxs(Yl,{children:[b.jsx(Gl,{children:"연락처"}),b.jsx(Br,{type:"tel",placeholder:"예약자 연락처",value:x.phone,onChange:I=>z({...x,phone:I.target.value})})]}),b.jsx(un,{primary:!0,onClick:F,style:{width:"100%",marginTop:"1rem"},disabled:X,children:X?"조회중...":"조회하기"})]})]})})}),b.jsx(Qr,{children:q&&b.jsx(d0,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},onClick:()=>U(!1),children:b.jsxs(m0,{onClick:I=>I.stopPropagation(),style:{textAlign:"center"},children:[b.jsx(p0,{onClick:()=>U(!1),children:"×"}),b.jsx("div",{style:{fontSize:"3rem",marginBottom:"1rem"},children:"🎉"}),b.jsx(Hl,{style:{justifyContent:"center"},children:"예매 완료!"}),b.jsxs("p",{style:{marginBottom:"2rem",color:"#666"},children:["공연 예매가 성공적으로 완료되었습니다.",b.jsx("br",{}),"예약 확인 메뉴에서 내역을 확인하실 수 있습니다."]}),b.jsx(un,{primary:!0,onClick:()=>U(!1),style:{width:"100%",margin:0},children:"확인"})]})})})]})},b3=nt(de.div)`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-`,b3=nt.div`
+`,x3=nt.div`
   background: rgba(255, 255, 255, 0.6);
   padding: 4rem;
   border-radius: 30px;
@@ -723,7 +727,7 @@ Error generating stack: `+l.message+`
   width: 100%;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.8);
-`,x3=nt.h2`
+`,T3=nt.h2`
   font-family: var(--font-display);
   font-size: 3rem;
   color: var(--text-main);
@@ -743,15 +747,15 @@ Error generating stack: `+l.message+`
     color: var(--text-main);
     line-height: 1.6;
   }
-`,T3=()=>b.jsx(S3,{initial:{opacity:0,scale:.9},animate:{opacity:1,scale:1},exit:{opacity:0,scale:.9},children:b.jsxs(b3,{children:[b.jsx(x3,{children:"Contact Us"}),b.jsxs(lf,{children:[b.jsx("h3",{children:"Address"}),b.jsxs("p",{children:["인천광역시 인하로 100",b.jsx("br",{}),"인하대학교 나빌레관 108호"]})]}),b.jsxs(lf,{children:[b.jsx("h3",{children:"Email"}),b.jsx("p",{children:"musical0623@naver.com"})]}),b.jsxs(lf,{children:[b.jsx("h3",{children:"Phone"}),b.jsx("p",{children:"010-1234-5678"})]})]})}),A3=nt.div`
+`,A3=()=>b.jsx(b3,{initial:{opacity:0,scale:.9},animate:{opacity:1,scale:1},exit:{opacity:0,scale:.9},children:b.jsxs(x3,{children:[b.jsx(T3,{children:"Contact Us"}),b.jsxs(lf,{children:[b.jsx("h3",{children:"Address"}),b.jsxs("p",{children:["인천광역시 인하로 100",b.jsx("br",{}),"인하대학교 나빌레관 108호"]})]}),b.jsxs(lf,{children:[b.jsx("h3",{children:"Email"}),b.jsx("p",{children:"musical0623@naver.com"})]}),b.jsxs(lf,{children:[b.jsx("h3",{children:"Phone"}),b.jsx("p",{children:"010-1234-5678"})]})]})}),E3=nt.div`
   display: flex;
   width: 100vw;
   height: 100vh;
   background: var(--bg-gradient);
   overflow: hidden;
-`,E3=nt.main`
+`,M3=nt.main`
   flex: 1;
   position: relative;
   width: 100%;
   height: 100%;
-`;function M3(){const[i,a]=J.useState("home");return b.jsxs(b.Fragment,{children:[b.jsx(nT,{}),b.jsxs(A3,{children:[b.jsx(H5,{activeSection:i,setActiveSection:a}),b.jsx(E3,{children:b.jsxs(Qr,{mode:"wait",children:[i==="home"&&b.jsx(n3,{},"home"),i==="reservation"&&b.jsx(v3,{},"reservation"),i==="contact"&&b.jsx(T3,{},"contact")]})})]})]})}tx.createRoot(document.getElementById("root")).render(b.jsx(J.StrictMode,{children:b.jsx(M3,{})}));
+`;function C3(){const[i,a]=J.useState("home");return b.jsxs(b.Fragment,{children:[b.jsx(nT,{}),b.jsxs(E3,{children:[b.jsx(H5,{activeSection:i,setActiveSection:a}),b.jsx(M3,{children:b.jsxs(Qr,{mode:"wait",children:[i==="home"&&b.jsx(n3,{},"home"),i==="reservation"&&b.jsx(S3,{},"reservation"),i==="contact"&&b.jsx(A3,{},"contact")]})})]})]})}tx.createRoot(document.getElementById("root")).render(b.jsx(J.StrictMode,{children:b.jsx(C3,{})}));
