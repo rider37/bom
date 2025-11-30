@@ -349,7 +349,7 @@ const Reservation = () => {
     const [ticketCount, setTicketCount] = useState(1);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [occupiedSeats, setOccupiedSeats] = useState([]);
-    const [formData, setFormData] = useState({ name: '', phone: '' });
+    const [formData, setFormData] = useState({ name: '', phone: '', date: '2026.01.16' });
 
     // Check/Cancel Modal State
     const [showCheckModal, setShowCheckModal] = useState(false);
@@ -360,10 +360,11 @@ const Reservation = () => {
 
     useEffect(() => {
         loadReservedSeats();
-    }, []);
+        setSelectedSeats([]); // Clear selection when date changes
+    }, [formData.date]);
 
     const loadReservedSeats = async () => {
-        const seats = await fetchReservedSeats();
+        const seats = await fetchReservedSeats(formData.date);
         setOccupiedSeats(seats);
     };
 
@@ -417,10 +418,10 @@ const Reservation = () => {
             setOccupiedSeats(prev => [...prev, ...selectedSeats]);
 
             setSelectedSeats([]);
-            setFormData({ name: '', phone: '' });
+            setFormData({ name: '', phone: '', date: '2026.01.16' });
 
             // Refresh seats after a short delay to allow backend to update
-            setTimeout(loadReservedSeats, 3000);
+            setTimeout(() => loadReservedSeats(), 3000);
         } else {
             alert('예매 중 오류가 발생했습니다.\n' + (result.message || ''));
         }
@@ -575,6 +576,16 @@ const Reservation = () => {
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                     />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>관람 일자</Label>
+                                    <Select
+                                        value={formData.date}
+                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                    >
+                                        <option value="2026.01.16">(1회차)2026.01.16 (금)</option>
+                                        <option value="2026.01.17">(2회차)2026.01.17 (토)</option>
+                                    </Select>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>인원 선택</Label>

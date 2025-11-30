@@ -1,8 +1,8 @@
 const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxf6JTwUR5c8EA5V1Oi3LyRT53UgnP6yduzPe6p-lQZafTw7kh1F0-TfJpi5tlDRMW1/exec';
 
-export const fetchReservedSeats = async () => {
+export const fetchReservedSeats = async (date) => {
     try {
-        const response = await fetch(`${GAS_WEB_APP_URL}?t=${Date.now()}`);
+        const response = await fetch(`${GAS_WEB_APP_URL}?t=${Date.now()}&date=${date || '2026.01.16'}`);
         const data = await response.json();
         // The new doGet returns an array of seats directly, or an empty array on error
         if (Array.isArray(data)) {
