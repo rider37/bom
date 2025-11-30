@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import waydown from '../assets/waydown.jpg';
+import waydown from '../assets/record.png';
 import { fetchReservedSeats, saveReservation, checkReservation, cancelReservation } from '../services/googleSheets';
 
 const ReservationContainer = styled(motion.div)`
@@ -496,7 +496,7 @@ const Reservation = () => {
             <ContentBox>
                 <LeftPanel>
                     <PosterImage src={waydown} alt="Poster" />
-                    <Title>갈라쇼 &lt;The Record: 감정조각&gt;</Title>
+                    <Title>갈라쇼 <br />&lt;The Record: 감정조각&gt;</Title>
                     <InfoText>
                         일시: 2026.01.16 - 01.17<br />
                         장소: 학산소극장<br />
