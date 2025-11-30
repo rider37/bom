@@ -236,6 +236,17 @@ const SeatMapContainer = styled.div`
     background: #ccc;
     border-radius: 4px;
   }
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    
+    & > * {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 `;
 
 const SectionContainer = styled.div`
@@ -395,9 +406,15 @@ const Reservation = () => {
         if (result.status === 'success') {
             setShowSuccessModal(true);
             setStep(0);
+
+            // Optimistically update occupied seats to prevent immediate re-selection
+            setOccupiedSeats(prev => [...prev, ...selectedSeats]);
+
             setSelectedSeats([]);
             setFormData({ name: '', phone: '' });
-            loadReservedSeats(); // Refresh seats
+
+            // Refresh seats after a short delay to allow backend to update
+            setTimeout(loadReservedSeats, 1000);
         } else {
             alert('예매 중 오류가 발생했습니다.\n' + (result.message || ''));
         }
