@@ -496,10 +496,10 @@ const Reservation = () => {
             <ContentBox>
                 <LeftPanel>
                     <PosterImage src={waydown} alt="Poster" />
-                    <Title>뮤지컬 &lt;웨이다운&gt;</Title>
+                    <Title>갈라쇼 &lt;The Record: 감정조각&gt;</Title>
                     <InfoText>
-                        일시: 2024.05.24 - 05.26<br />
-                        장소: 인하대학교 본관 대강당<br />
+                        일시: 2026.01.16 - 01.17<br />
+                        장소: 학산소극장<br />
                         러닝타임: 100분
                     </InfoText>
                 </LeftPanel>
@@ -517,7 +517,7 @@ const Reservation = () => {
                                 <StepTitle><span>Step 01</span>예매 안내</StepTitle>
                                 <InfoText style={{ color: '#555' }}>
                                     본 공연은 무료 공연입니다.<br />
-                                    원활한 관람을 위해 1인당 최대 4매까지 예매 가능합니다.<br />
+                                    원활한 관람을 위해 1인당 최대 10매까지 예매 가능합니다.<br />
                                     공연 시작 10분 전까지 티켓을 수령해주시기 바랍니다.
                                 </InfoText>
                                 <div style={{ display: 'flex', gap: '1rem' }}>

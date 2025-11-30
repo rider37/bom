@@ -58,11 +58,11 @@ const Contact = () => {
         <Title>Contact Us</Title>
         <InfoItem>
           <h3>Address</h3>
-          <p>서울특별시 성북구 안암로 145<br />고려대학교 학생회관 6층</p>
+          <p>인천광역시 인하로 100<br />인하대학교 나빌레관 108호</p>
         </InfoItem>
         <InfoItem>
           <h3>Email</h3>
-          <p>contact@geukdanbom.com</p>
+          <p>musical0623@naver.com</p>
         </InfoItem>
         <InfoItem>
           <h3>Phone</h3>

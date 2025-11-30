@@ -391,7 +391,7 @@ const Home = () => {
           transition={{ duration: 1 }}
         >
           <h1>극단 봄</h1>
-          <p>봄, 모든 것의 시작</p>
+          <p>인하대학교 유일 뮤지컬 동아리, "극단 봄" 입니다.</p>
         </HeroContent>
       </HeroSection>
 
@@ -491,7 +491,7 @@ const Home = () => {
             <ul>
               <li>매주 금요일 6시부터 운영진 회의 및 단체 연습 진행</li>
               <li>신입단원 환영회 및 OT: 9월 26일(금)</li>
-              <li>공연 일정: 12월 19(금) - 20(토) (예정)</li>
+              <li>공연 일정: 2026년 1월 16(금) - 17(토) (예정)</li>
             </ul>
           </InfoItem>
           <InfoItem>
