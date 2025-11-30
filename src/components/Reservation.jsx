@@ -356,16 +356,22 @@ const Reservation = () => {
     const [checkData, setCheckData] = useState({ name: '', phone: '' });
     const [myReservations, setMyReservations] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSeatLoading, setIsSeatLoading] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
+        console.log('Date changed to:', formData.date);
         loadReservedSeats();
         setSelectedSeats([]); // Clear selection when date changes
     }, [formData.date]);
 
     const loadReservedSeats = async () => {
+        setIsSeatLoading(true);
+        console.log('Loading seats for date:', formData.date);
         const seats = await fetchReservedSeats(formData.date);
+        console.log('Loaded seats:', seats);
         setOccupiedSeats(seats);
+        setIsSeatLoading(false);
     };
 
     const handleNext = () => {
@@ -583,8 +589,8 @@ const Reservation = () => {
                                         value={formData.date}
                                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                     >
-                                        <option value="2026.01.16">(1회차)2026.01.16 (금)</option>
-                                        <option value="2026.01.17">(2회차)2026.01.17 (토)</option>
+                                        <option value="2026.01.16">(1회차) 2026.01.16 (금)</option>
+                                        <option value="2026.01.17">(2회차) 2026.01.17 (토)</option>
                                     </Select>
                                 </FormGroup>
                                 <FormGroup>
@@ -613,39 +619,66 @@ const Reservation = () => {
                                 exit={{ opacity: 0, x: -20 }}
                             >
                                 <StepTitle><span>Step 03</span>좌석 선택</StepTitle>
-                                <SeatMapContainer>
-                                    <SeatMapWrapper>
-                                        {/* Da-yeol (Top) - Purple */}
-                                        <div style={{ position: 'relative' }}>
-                                            <span style={{ color: '#9370db', fontWeight: 'bold', display: 'block', textAlign: 'center', marginBottom: '10px' }}>다열</span>
-                                            <div style={{ display: 'flex', gap: '6px', flexDirection: 'row-reverse' }}>
-                                                {/* Da-yeol is 1 row of 18 */}
-                                                {renderSeatBlock('다', 1, 1, 18, '#9370db', '#e6e6fa')}
+                                {isSeatLoading ? (
+                                    <div style={{
+                                        height: '400px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        flexDirection: 'column',
+                                        gap: '1rem'
+                                    }}>
+                                        <div className="spinner" style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            border: '4px solid #f3f3f3',
+                                            borderTop: '4px solid var(--accent-color)',
+                                            borderRadius: '50%',
+                                            animation: 'spin 1s linear infinite'
+                                        }} />
+                                        <p style={{ color: 'var(--text-muted)' }}>좌석 정보를 불러오는 중입니다...</p>
+                                        <style>{`
+                                            @keyframes spin {
+                                                0% { transform: rotate(0deg); }
+                                                100% { transform: rotate(360deg); }
+                                            }
+                                        `}</style>
+                                    </div>
+                                ) : (
+                                    <SeatMapContainer>
+                                        <SeatMapWrapper>
+                                            {/* Da-yeol (Top) - Purple */}
+                                            <div style={{ position: 'relative' }}>
+                                                <span style={{ color: '#9370db', fontWeight: 'bold', display: 'block', textAlign: 'center', marginBottom: '10px' }}>다열</span>
+                                                <div style={{ display: 'flex', gap: '6px', flexDirection: 'row-reverse' }}>
+                                                    {/* Da-yeol is 1 row of 18 */}
+                                                    {renderSeatBlock('다', 1, 1, 18, '#9370db', '#e6e6fa')}
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <SectionContainer>
-                                            {/* Na-yeol (Left) - Cyan */}
-                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                                <span style={{ color: '#40e0d0', fontWeight: 'bold', marginBottom: '10px' }}>나열</span>
-                                                <SideSection>
-                                                    {/* Na-yeol is 6 rows of 8. Reverse row numbering (Right to Left increasing) */}
-                                                    {renderSeatBlock('나', 1, 6, 8, '#40e0d0', '#e0ffff', true)}
-                                                </SideSection>
-                                            </div>
+                                            <SectionContainer>
+                                                {/* Na-yeol (Left) - Cyan */}
+                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                    <span style={{ color: '#40e0d0', fontWeight: 'bold', marginBottom: '10px' }}>나열</span>
+                                                    <SideSection>
+                                                        {/* Na-yeol is 6 rows of 8. Reverse row numbering (Right to Left increasing) */}
+                                                        {renderSeatBlock('나', 1, 6, 8, '#40e0d0', '#e0ffff', true)}
+                                                    </SideSection>
+                                                </div>
 
-                                            {/* Ga-yeol (Right) - Orange */}
-                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                                <span style={{ color: '#ff7f50', fontWeight: 'bold', marginBottom: '10px' }}>가열</span>
-                                                <SideSection>
-                                                    {renderSeatBlock('가', 1, 6, 8, '#ff7f50', '#ffe4e1')}
-                                                </SideSection>
-                                            </div>
-                                        </SectionContainer>
+                                                {/* Ga-yeol (Right) - Orange */}
+                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                    <span style={{ color: '#ff7f50', fontWeight: 'bold', marginBottom: '10px' }}>가열</span>
+                                                    <SideSection>
+                                                        {renderSeatBlock('가', 1, 6, 8, '#ff7f50', '#ffe4e1')}
+                                                    </SideSection>
+                                                </div>
+                                            </SectionContainer>
 
-                                        <Stage>STAGE</Stage>
-                                    </SeatMapWrapper>
-                                </SeatMapContainer>
+                                            <Stage>STAGE</Stage>
+                                        </SeatMapWrapper>
+                                    </SeatMapContainer>
+                                )}
 
                                 <div style={{ display: 'flex', marginTop: '2rem' }}>
                                     <Button type="button" onClick={() => setStep(1)}>이전</Button>
